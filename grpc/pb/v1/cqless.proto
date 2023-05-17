@@ -1,0 +1,95 @@
+syntax = "proto3";
+
+package demo.v1;
+option go_package = "/v1/cqless";
+
+import "google/api/annotations.proto";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/field_mask.proto";
+
+// Generated according to https://cloud.google.com/apis/design/standard_methods
+service CQLessService {
+  rpc ListCQLesss(ListCQLesssRequest) returns (ListCQLesssResponse) {
+    option (google.api.http) = {
+      get: "/v1/cqlesss"
+    };
+  }
+
+  rpc GetCQLess(GetCQLessRequest) returns (CQLess) {
+    option (google.api.http) = {
+      get: "/v1/{name=cqlesss/*}"
+    };
+  }
+
+  rpc CreateCQLess(CreateCQLessRequest) returns (CQLess) {
+    option (google.api.http) = {
+      post: "/v1/cqlesss"
+      body: "cqless"
+    };
+  }
+
+  rpc UpdateCQLess(UpdateCQLessRequest) returns (CQLess) {
+    option (google.api.http) = {
+      patch: "/v1/{cqless.name=cqlesss/*}"
+      body: "cqless"
+    };
+  }
+
+  rpc DeleteCQLess(DeleteCQLessRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/{name=cqlesss/*}"
+    };
+  }
+}
+
+message CQLess {
+  string name = 1;
+}
+
+message ListCQLesssRequest {
+  // The parent resource name, for example, "shelves/shelf1"
+  string parent = 1;
+
+  // The maximum number of items to return.
+  int32 page_size = 2;
+
+  // The next_page_token value returned from a previous List request, if any.
+  string page_token = 3;
+}
+
+message ListCQLesssResponse {
+  // The field name should match the noun "cqless" in the method name.
+  repeated CQLess cqlesses = 1;
+  string next_page_token = 2;
+}
+
+message GetCQLessRequest {
+  // The field will contain name of the resource requested.
+  string name = 1;
+}
+
+message CreateCQLessRequest {
+  // The parent resource name where the cqless is to be created.
+  string parent = 1;
+
+  // The cqless id to use for this cqless.
+  string cqless_id = 2;
+
+  // The cqless resource to create.
+  // The field name should match the Noun in the method name.
+  CQLess cqless = 3;
+}
+
+message UpdateCQLessRequest {
+  // The cqless resource which replaces the resource on the server.
+  CQLess cqless = 1;
+
+  // The update mask applies to the resource. For the `FieldMask` definition,
+  google.protobuf.FieldMask update_mask = 2;
+}
+
+message DeleteCQLessRequest {
+  // The resource name of the cqless to be deleted.
+  string name = 1;
+}
